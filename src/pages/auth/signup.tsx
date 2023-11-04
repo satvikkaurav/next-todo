@@ -4,7 +4,8 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "@/utils/firebase";
 import { useEffect, useState } from "react";
 import { doc, setDoc } from "firebase/firestore";
-import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -12,10 +13,7 @@ export default function SignUp() {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
-
-  useEffect(() => {
-    console.log(email);
-  }, [email]);
+  const router = useRouter()
 
   function signUp() {
     createUserWithEmailAndPassword(auth, email, password)
@@ -29,6 +27,7 @@ export default function SignUp() {
       })
       .then(()=>{
         console.log("Successfully Account Created")
+        router.push("/")
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -77,6 +76,12 @@ export default function SignUp() {
           >
             Sign Up
           </button>
+          <div className="flex flex-col justify-center items-center pt-4">
+            Already have an account?
+            <div className="text-teal-800">
+              <Link href="/auth/signup">LogIn</Link>
+            </div>
+          </div>
         </div>
       </main>
     </div>
