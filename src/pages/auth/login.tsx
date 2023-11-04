@@ -19,7 +19,6 @@ export default function Login() {
   const router = useRouter();
   const [user, loading, error] = useAuthState(auth);
   useEffect(() => {
-    console.log(user);
     if (user) {
       router.push("/");
     }

@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { doc, setDoc } from "firebase/firestore";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,6 +15,13 @@ export default function SignUp() {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter()
+  const [user, loading, error] = useAuthState(auth);
+
+  useEffect(() => {
+    if (user) {
+      router.push("/");
+    }
+  }, [user, router]);
 
   function signUp() {
     createUserWithEmailAndPassword(auth, email, password)
@@ -79,7 +87,7 @@ export default function SignUp() {
           <div className="flex flex-col justify-center items-center pt-4">
             Already have an account?
             <div className="text-teal-800">
-              <Link href="/auth/signup">LogIn</Link>
+              <Link href="/auth/login">LogIn</Link>
             </div>
           </div>
         </div>
