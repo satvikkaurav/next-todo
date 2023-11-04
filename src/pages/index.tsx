@@ -83,7 +83,7 @@ export default function Home() {
 
         <h2 className="text-2xl font-extrabold mt-5 mb-2 gap">Tasks</h2>
         {tasks &&
-          tasks.map((data, index) => {
+          tasks.map((data:any, index:any) => {
             return (
               <Card
                 data={data}

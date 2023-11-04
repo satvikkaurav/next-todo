@@ -17,12 +17,14 @@ export const Card = (props: Props) => {
   const [user, loading, error] = useAuthState(auth);
 
   async function removeTask() {
-    const docRef = doc(db, "users", user.uid);
-    await updateDoc(docRef, {
-      todo: arrayRemove(props.data),
-    }).then(() => {
-      console.log("Successfully Removed");
-    });
+    if (user) {
+      const docRef = doc(db, "users", user.uid);
+      await updateDoc(docRef, {
+        todo: arrayRemove(props.data),
+      }).then(() => {
+        console.log("Successfully Removed");
+      });
+    }
   }
 
   return (
